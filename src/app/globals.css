@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAF8F5;
+  --foreground: #121016;
+  --font-serif-val: var(--font-serif), Georgia, Cambria, serif;
+  --font-sans-val: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+@theme inline {
+  --font-serif: var(--font-serif-val);
+  --font-sans: var(--font-sans-val);
+
+  --color-warm-ivory: #FAF8F5;
+  --color-warm-paper: #F3EFE8;
+  --color-ink: #121016;
+  --color-ink-soft: #2A2630;
+  --color-stone: #6F6A78;
+  --color-stone-muted: #8E8996;
+  --color-ping-purple: #9B3CF2;
+  --color-ping-purple-deep: #7A22D6;
+  --color-ping-lilac: #EADCFD;
+  --color-ping-coral: #FF5C68;
+  --color-ping-red: #FF3B5C;
+  --color-ping-mint: #D6EFEC;
+  --color-ping-peach: #F6E3D3;
+  --color-ping-sky: #DCE6F8;
+}
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #FAF8F5;
+  color: #121016;
+  overflow-x: hidden;
+}
+
+/* Custom smooth subtle glass & textures */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(18, 16, 22, 0.08);
+}
+
+.glass-panel-dark {
+  background: rgba(18, 16, 22, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.holo-gradient {
+  background: linear-gradient(135deg, #D6EFEC 0%, #D9CCF2 35%, #DCE6F8 70%, #F6E3D3 100%);
+}
+
+.subtle-noise {
+  background-image: radial-gradient(rgba(18, 16, 22, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
