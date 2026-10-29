@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Sparkles, ArrowRight, ShieldCheck, Mail } from "lucide-react";
+import { ChevronDown, Sparkles, ArrowRight, Mail } from "lucide-react";
 import { RevealText, ScrollFade } from "@/components/motion/MotionPrimitives";
 
 interface FaqItem {
@@ -36,8 +36,6 @@ const FAQS: FaqItem[] = [
 
 export function FaqFooterSection() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
-  const [showTermsModal, setShowTermsModal] = useState(false);
 
   return (
     <>
@@ -123,11 +121,11 @@ export function FaqFooterSection() {
                 Navigation
               </span>
               <ul className="space-y-2 text-sm text-[#6F6A78]">
-                <li><a href="#story" className="hover:text-[#121016] transition-colors">Story & Narrative</a></li>
-                <li><a href="#simulator" className="hover:text-[#121016] transition-colors">App Simulator</a></li>
-                <li><a href="#connection" className="hover:text-[#121016] transition-colors">Connection Moment</a></li>
-                <li><a href="#features" className="hover:text-[#121016] transition-colors">Product Features</a></li>
-                <li><a href="#showcase" className="hover:text-[#121016] transition-colors">App Showcase</a></li>
+                <li><Link href="/#story" className="hover:text-[#121016] transition-colors">Story & Narrative</Link></li>
+                <li><Link href="/#simulator" className="hover:text-[#121016] transition-colors">App Simulator</Link></li>
+                <li><Link href="/#connection" className="hover:text-[#121016] transition-colors">Connection Moment</Link></li>
+                <li><Link href="/#features" className="hover:text-[#121016] transition-colors">Product Features</Link></li>
+                <li><Link href="/#showcase" className="hover:text-[#121016] transition-colors">App Showcase</Link></li>
               </ul>
             </div>
 
@@ -140,14 +138,14 @@ export function FaqFooterSection() {
                 Join our private testing queue to preview upcoming builds on TestFlight & Google Play.
               </p>
               <div>
-                <a
-                  href="#early-access"
+                <Link
+                  href="/#early-access"
                   className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-full bg-[#121016] text-[#FAF8F5] hover:bg-[#9B3CF2] transition-colors"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-[#EADCFD]" />
                   <span>Reserve Your Spot</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </a>
+                </Link>
               </div>
               <div className="pt-2 text-xs text-[#8E8996] flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5" />
@@ -163,107 +161,22 @@ export function FaqFooterSection() {
             </div>
 
             <div className="flex items-center gap-6">
-              <button
-                type="button"
-                onClick={() => setShowPrivacyModal(true)}
+              <Link
+                href="/privacy"
                 className="hover:text-[#121016] transition-colors underline cursor-pointer"
               >
                 Privacy Policy
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowTermsModal(true)}
+              </Link>
+              <Link
+                href="/terms"
                 className="hover:text-[#121016] transition-colors underline cursor-pointer"
               >
                 Terms of Service
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Privacy Policy Modal */}
-      {showPrivacyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-4 max-h-[85vh] overflow-y-auto border border-[#121016]/10 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#121016]/8 pb-3">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-[#3CCB7F]" />
-                <h3 className="font-serif text-xl font-bold text-[#121016]">Privacy Policy</h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowPrivacyModal(false)}
-                className="text-[#6F6A78] hover:text-[#121016] text-sm font-semibold"
-              >
-                Close
-              </button>
-            </div>
-            <div className="text-xs text-[#6F6A78] space-y-3 leading-relaxed">
-              <p>
-                <strong>1. Data Collection:</strong> We collect early-access email submissions solely for product notifications, beta launch announcements, and invitations. We never sell or rent your personal contact information to third parties.
-              </p>
-              <p>
-                <strong>2. Security:</strong> All submission transmissions are encrypted in transit via SSL/TLS. Registration entries are stored securely on our dedicated datastore.
-              </p>
-              <p>
-                <strong>3. Simulator Isolation:</strong> The interactive demo on this landing page runs entirely client-side using mock fictional profiles and does not monitor or store your private interactions.
-              </p>
-              <p>
-                <strong>4. Unsubscribe:</strong> You can opt out or request data removal at any time by contacting privacy@pingapp.io.
-              </p>
-            </div>
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={() => setShowPrivacyModal(false)}
-                className="w-full py-2.5 rounded-full bg-[#121016] text-white text-xs font-semibold hover:bg-[#9B3CF2] transition-colors"
-              >
-                Understood
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Terms of Service Modal */}
-      {showTermsModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-4 max-h-[85vh] overflow-y-auto border border-[#121016]/10 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#121016]/8 pb-3">
-              <h3 className="font-serif text-xl font-bold text-[#121016]">Terms of Service</h3>
-              <button
-                type="button"
-                onClick={() => setShowTermsModal(false)}
-                className="text-[#6F6A78] hover:text-[#121016] text-sm font-semibold"
-              >
-                Close
-              </button>
-            </div>
-            <div className="text-xs text-[#6F6A78] space-y-3 leading-relaxed">
-              <p>
-                <strong>1. Beta Access:</strong> Early access invitations are granted on a rolling basis. Registration does not guarantee immediate app onboarding.
-              </p>
-              <p>
-                <strong>2. Community Guidelines:</strong> Ping is committed to respectful, authentic interactions. Hate speech, harassment, impersonation, or deceptive behavior result in immediate termination of beta privileges.
-              </p>
-              <p>
-                <strong>3. Intellectual Property:</strong> All brand assets, wordmarks, and interface designs are proprietary to Ping Technologies, Inc.
-              </p>
-            </div>
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={() => setShowTermsModal(false)}
-                className="w-full py-2.5 rounded-full bg-[#121016] text-white text-xs font-semibold hover:bg-[#9B3CF2] transition-colors"
-              >
-                Understood
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }
-

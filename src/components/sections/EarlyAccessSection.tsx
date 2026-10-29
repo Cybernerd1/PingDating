@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail } from "lucide-react";
@@ -175,9 +176,9 @@ export function EarlyAccessSection() {
                 {/* Supporting Privacy Copy */}
                 <p className="text-xs text-[#8E8996] mt-3">
                   Your email will be used for early-access updates. See our{" "}
-                  <a href="#privacy" className="text-[#EADCFD] underline hover:text-white">
+                  <Link href="/privacy" className="text-[#EADCFD] underline hover:text-white">
                     privacy policy
-                  </a>
+                  </Link>
                   .
                 </p>
               </form>

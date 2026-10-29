@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           error: errorMsg,
-          issues: parseResult.error.issues,
         },
         { status: 400 }
       );
@@ -34,7 +33,6 @@ export async function POST(request: NextRequest) {
           success: true,
           isDuplicate: true,
           message: "You're already on the list! We'll send your early-access link when it's ready.",
-          email: result.record.email,
         },
         { status: 200 }
       );
@@ -45,7 +43,6 @@ export async function POST(request: NextRequest) {
         success: true,
         isDuplicate: false,
         message: "You're on the list. We'll send your early-access link when it's ready.",
-        email: result.record.email,
       },
       { status: 201 }
     );
@@ -61,20 +58,30 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
-  try {
-    const list = await getRegistrations();
-    return NextResponse.json({
-      status: "operational",
-      totalRegistrations: list.length,
-      recentCount: list.filter(
-        (r) => Date.now() - new Date(r.createdAt).getTime() < 24 * 60 * 60 * 1000
-      ).length,
-    });
-  } catch {
-    return NextResponse.json(
-      { status: "error", error: "Failed to read registrations" },
-      { status: 500 }
-    );
+export async function GET(request: NextRequest) {
+  // Public health check response: does not expose internal subscriber counts or metrics
+  const authHeader = request.headers.get("authorization");
+  const adminSecret = process.env.ADMIN_API_KEY;
+
+  // If authenticated admin requests stats
+  if (adminSecret && authHeader === `Bearer ${adminSecret}`) {
+    try {
+      const list = await getRegistrations();
+      return NextResponse.json({
+        status: "operational",
+        totalRegistrations: list.length,
+        recentCount: list.filter(
+          (r) => Date.now() - new Date(r.createdAt).getTime() < 24 * 60 * 60 * 1000
+        ).length,
+      });
+    } catch {
+      return NextResponse.json(
+        { status: "error", error: "Failed to read registrations" },
+        { status: 500 }
+      );
+    }
   }
+
+  // Unauthenticated callers receive only a benign uptime status
+  return NextResponse.json({ status: "operational" });
 }
