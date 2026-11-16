@@ -127,7 +127,9 @@ export function EarlyAccessSection() {
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="relative flex flex-col sm:flex-row items-stretch gap-2.5 bg-white/5 p-2 rounded-2xl sm:rounded-full border border-white/15 focus-within:border-[#9B3CF2] focus-within:ring-2 focus-within:ring-[#9B3CF2]/30 transition-all backdrop-blur-md">
-                  <div className="relative flex-1 flex items-center pl-4">
+                  {/* suppressHydrationWarning: email-autofill browser extensions inject
+                      extra nodes into email field wrappers, causing SSR/client mismatch. */}
+                  <div className="relative flex-1 flex items-center pl-4" suppressHydrationWarning>
                     <Mail className="w-5 h-5 text-[#8E8996] shrink-0 mr-2" />
                     <input
                       type="email"
